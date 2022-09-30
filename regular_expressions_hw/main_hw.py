@@ -43,8 +43,8 @@ def union(contacts: list):
     for i in contacts:
         if i not in result_list:
             result_list.append(i)
-    pprint(result_list)
-    return result_list
+    # pprint(result_list)
+    return write_file(result_list)
 
 
 def write_file(result_list):
