@@ -2,8 +2,7 @@ import bs4
 import requests
 
 URL = "https://habr.com/ru/all/"
-KEYWORDS = ['дизайн', 'фото', 'web', 'python', 'PostgreSQL', 'IT', 'NetWare', 'Databricks', 'Simultaneity', 'NullReferenceException']
-words = ['срезы по IT-рынку', 'активности найма в сентябре']
+KEYWORDS = ['дизайн', 'фото', 'web', 'python', 'PostgreSQL', 'IT', 'NetWare', 'PyTorch-Ignite', 'NullReferenceException']
 
 headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'
