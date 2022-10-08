@@ -18,21 +18,20 @@ class FlatIterator:
         self.cursor_next += 1
         return self.main_list[self.cursor][self.cursor_next - 1]
 
-def traverse(o, tree_types=(list, tuple)):
-    if isinstance(o, tree_types):
-        for value in o:
-            for subvalue in traverse(value, tree_types):
-                yield subvalue
-    else:
-        yield o
 
-class FlatIteratorV2:
+def generation(main_list):
+    for part in main_list:
+        for i in part:
+            yield i
+
+
+class FlatIterator2:
 
     def __init__(self, multi_list):
         self.multi_list = multi_list
 
     def __iter__(self):
-        self.iterators_queue = []  # очередь
+        self.iterators_queue = []
         self.current_iterator = iter(self.multi_list)
         return self
 
@@ -40,30 +39,26 @@ class FlatIteratorV2:
         while True:
             try:
                 self.current_element = next(self.current_iterator)
-                #  пытаемся получить следующий элемент
             except StopIteration:
                 if not self.iterators_queue:
-                    # если в текущем итераторе элементов не осталось и очередь иетраторов пуста
-                    # завершаем цикл
                     raise StopIteration
                 else:
-                    # берем итератор из очереди
                     self.current_iterator = self.iterators_queue.pop()
                     continue
             if isinstance(self.current_element, list):
-                # если следующий эелемент оказался списком, то
-                # добавляем текущий итератор в очередь
-                # а текущим итераторм делаем следующий элемент
                 self.iterators_queue.append(self.current_iterator)
                 self.current_iterator = iter(self.current_element)
             else:
-                # если элемент не список, то просто возвращаем его
                 return self.current_element
 
-def generation(main_list):
-    for part in main_list:
-        for i in part:
-            yield i
+
+def generation_hard(o, tree_types=(list, tuple)):
+    if isinstance(o, tree_types):
+        for value in o:
+            for sub in generation_hard(value, tree_types):
+                yield sub
+    else:
+        yield o
 
 
 if __name__ == '__main__':
@@ -73,28 +68,28 @@ if __name__ == '__main__':
         [1, 2, None],
     ]
 nested_list2 = [
-        [[[[[['a']]]]], 'b', 'c'],
-        [[[['d', 'e']]], 'f', 'h', False],
-        [1, 2, None],
-    ]
+    [[[[[['a']]]]], 'b', 'c'],
+    [[[['d', 'e']]], 'f', 'h', False],
+    [1, 2, None],
+]
 
 print("Задача 1")
 for item in FlatIterator(nested_list):
-        print(item)
+    print(item)
+print()
 print("List comprehension")
+print()
 flat_list = [item for item in FlatIterator(nested_list)]
 print(flat_list)
-
+print()
 print("Задача 2")
 for item in generation(nested_list):
     print(item)
-
+print()
 print("Задача 3")
-for item in FlatIteratorV2(nested_list2):
+for item in FlatIterator2(nested_list2):
     print(item)
-
+print()
 print("Задача 4")
-for item in traverse(nested_list2):
+for item in generation_hard(nested_list2):
     print(item)
-
-
