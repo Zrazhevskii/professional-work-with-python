@@ -7,7 +7,8 @@ def decorator(some_function):
         function = some_function(some_list)
         result = f'Вызвана функция {some_function.__name__}, время вызова функции {log_date}.\n' \
                  f'Вводные данные: {some_list}\n' \
-                 f'Результат выполнения функции {some_function.__name__} - {function}\n'
+                 f'Результат выполнения функции {some_function.__name__} - {function}\n'\
+                 f'                                                                    \n'
 
         with open('date_log.txt', 'a', encoding='utf-8') as f:
             f.write(result)
