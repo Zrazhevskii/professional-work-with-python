@@ -1,4 +1,8 @@
-from decorator import decorator
+import pathlib
+from pathlib import Path
+from decorator import parametrized_decor
+
+path = Path(pathlib.Path.cwd(), 'PyCharm', 'professional-work-with-python', 'decorators', 'date_log.txt')
 
 
 def generation(o, tree_types=(list, tuple)):
@@ -10,7 +14,7 @@ def generation(o, tree_types=(list, tuple)):
         yield o
 
 
-@decorator
+@parametrized_decor(params=path)
 def numer(function):
     nos = []
     for item in generation(function):
