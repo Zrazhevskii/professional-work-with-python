@@ -29,4 +29,5 @@ if __name__ == '__main__':
         [1, 2, None],
     ]
 
-    numer(nested_list2)
+    result = numer(nested_list2)
+    print('result: ', result)
